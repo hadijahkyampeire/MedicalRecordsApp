@@ -1,0 +1,16 @@
+{
+  "name": "medicalrecords",
+  "version": "1.0.0",
+  "description": "a simple medical record app to keep patients records",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "*",
+    "body-parser": "*",
+    "mongoose": "*"
+  },
+  "author": "Hadijah Omega",
+  "license": "ISC"
+}
