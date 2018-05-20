@@ -5,6 +5,7 @@ var mongoose = require('mongoose');
 
 app.use(bodyParser.json());
 Patient = require('./models/patient')
+Medicine = require('./models/medicine')
 
 // connect to mongoose
 mongoose.connect('mongodb://localhost/medicalrecords')
@@ -13,7 +14,7 @@ mongoose.connect('mongodb://localhost/medicalrecords')
 var db = mongoose.connection
 
 app.get('/', function(req, res){
-    res.send('Please use1 api/patient');
+    res.send('Please use1 api/patient or api/medicines');
 });
 
 // Get all the patients
@@ -23,6 +24,16 @@ app.get('/api/patients', function(req, res){
             throw err;
         }
         res.json(patients);
+    });
+});
+
+// Get a patient by id
+app.get('/api/patients/:_id', function(req, res){
+    Patient.getPatientById(req.params._id, function(err, book){
+        if(err){
+            throw err;
+        }
+        res.json(book);
     });
 });
 
@@ -63,6 +74,61 @@ app.delete('/api/patients/:_id', function(req, res){
         res.json(patient);
     });
 });
+
+// Get all medicines
+app.get('/api/medicines', function(req, res){
+    Medicine.getMedicines(req.params._id, function(err, medicines){
+        if (err){
+            throw err;
+        }
+        res.json(medicines)
+    });
+})
+
+//  Get one medicine by id
+app.get('/api/medicines/:_id', function(req, res){
+    Medicine.getMedicineById(function(err, medicine){
+        if (err){
+            throw err;
+        }
+        res.json(medicine)
+    });
+})
+
+// Add medicine
+app.post('/api/medicines', function(req, res){
+    var medicine = req.body;
+    Medicine.addMedicine(medicine, function(err, medicine){
+        if (err){
+            throw err;
+        }
+        res.json(medicine)
+    });
+})
+
+// Edit medicine
+app.put('/api/medicines/:_id', function(req, res){
+    var id = req.params._id;
+    var medicine = req.body;
+    Medicine.updateMedicine(id, medicine, {}, function(err, medicine){
+        if(err){
+            throw err; 
+        }
+        res.json(medicine);
+    });
+})
+
+// delete medicine
+app.delete('/api/medicines/:_id', function(req, res){
+    var id = req.params._id;
+    var medicine = req.body;
+    Medicine.removeMedicine(id, function(err, medicine){
+        if(err){
+            throw err;
+        }
+        res.json(medicine);
+    });
+})
 
 app.listen('3000');
 console.log('Running at 3000....');
