@@ -11,3 +11,6 @@ After run **node app** or **nodemon** to start.
 
 ### Testing Endpoints
 You can use Resteasy which is a chrome app or Postman which is also a chrome app or any other client that tests API endpoints.
+
+## Resteasy snapshot
+![picture](./image.png)
