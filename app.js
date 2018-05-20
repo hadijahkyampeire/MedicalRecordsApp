@@ -45,7 +45,11 @@ app.post('/api/patients', function(req, res){
         if(err){
             throw err;
         }
-        res.json(patient);
+        res.json({
+            patient:patient,
+            status:201,
+            success:true,
+            message:'patient added successfully'});
     });
 });
 
@@ -58,7 +62,11 @@ app.put('/api/patients/:_id', function(req, res){
         if(err){
             throw err; 
         }
-        res.json(patient);
+        res.json({
+            patient:patient,
+            status:201,
+            success:true,
+            message:'patient updated successfully'});
     });
 });
 
@@ -66,18 +74,21 @@ app.put('/api/patients/:_id', function(req, res){
 app.delete('/api/patients/:_id', function(req, res){
     // req.body allows us to access everything coming from the forms into the patient object
     var id = req.params._id;
-    var patient = req.body;
+    var patient = Patient.getPatientById(req.params.id);
     Patient.removePatient(id, function(err, patient){
-        if(err){
+        if(patient == null || patient == 'undefined'){
+            res.status(404)
             throw err;
         }
-        res.json(patient);
+        res.json({
+            success:true,
+            message:'patient deleted successfully'});
     });
 });
 
 // Get all medicines
 app.get('/api/medicines', function(req, res){
-    Medicine.getMedicines(req.params._id, function(err, medicines){
+    Medicine.getMedicines(function(err, medicines){
         if (err){
             throw err;
         }
@@ -102,7 +113,11 @@ app.post('/api/medicines', function(req, res){
         if (err){
             throw err;
         }
-        res.json(medicine)
+        res.json({
+            medicine:medicine,
+            success:true,
+            message:'medicine added successfully'
+        })
     });
 })
 
@@ -114,7 +129,11 @@ app.put('/api/medicines/:_id', function(req, res){
         if(err){
             throw err; 
         }
-        res.json(medicine);
+        res.json({
+            medicine:medicine,
+            success:true,
+            message:'medicine updated successfully'
+        });
     });
 })
 
@@ -126,7 +145,10 @@ app.delete('/api/medicines/:_id', function(req, res){
         if(err){
             throw err;
         }
-        res.json(medicine);
+        res.json({
+            success:true,
+            message:'medicine deleted successfully'
+        });
     });
 })
 

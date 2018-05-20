@@ -25,6 +25,9 @@ var medicineSchema = mongoose.Schema({
     precautions:{
         type: String,
         required: true
+    },
+    image:{
+        type: String
     }
 })
 
