@@ -29,11 +29,11 @@ app.get('/api/patients', function(req, res){
 
 // Get a patient by id
 app.get('/api/patients/:_id', function(req, res){
-    Patient.getPatientById(req.params._id, function(err, book){
+    Patient.getPatientById(req.params._id, function(err, patient){
         if(err){
             throw err;
         }
-        res.json(book);
+        res.json(patient);
     });
 });
 
